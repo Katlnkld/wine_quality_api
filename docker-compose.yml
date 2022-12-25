@@ -1,10 +1,29 @@
 version: '3.4'
 
 services:
-  winequalityapi:
-    image: winequalityapi
+  mlops:
+    image: mlops
     build:
       context: .
       dockerfile: ./Dockerfile
+    command: python api.py
     ports:
       - 5002:5002
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=Wine
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+volumes:
+  postgres_data:

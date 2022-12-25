@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  winequalityapi:
-    image: winequalityapi
+  mlops:
+    image: mlops
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -11,4 +11,4 @@ services:
       - 5002:5002
       - 5678:5678
     environment:
-      - FLASK_APP=wine.py
+      - FLASK_APP=api.py
